@@ -1,6 +1,6 @@
-#include "Trie.h"
-
 #include <ranges>
+
+#include "Trie.h"
 
 Trie::Node_::Node_() : ends_count_(0), best_word_count_(0), best_word_idx_(0) {}
 
@@ -101,9 +101,6 @@ void Trie::addWord(const std::string& word) {
 std::pair<size_t, size_t> Trie::move(const std::string& word, size_t start_idx, size_t start_node) {
     if (start_node >= last_new_node_) {
         throw std::runtime_error("Bad start_node parameter");
-    }
-    if (start_idx >= word.size()) {
-        throw std::runtime_error("Bad start_idx parameter");
     }
 
     size_t curr_node = start_node;

@@ -1,10 +1,39 @@
-#include "../include/App.h"
+#include <iostream>
+
+#include "App.h"
 
 App::App() : is_exit_(false) {}
 
 void App::mainLoop() {
-    // TODO: implement
-    is_exit_ = true;
+    std::string command;
+    std::cin >> command;
+
+    if (command.empty()) {
+        std::cerr << "Warning: empty command" << std::endl;
+        return;
+    }
+
+    if (command == "text") {
+        std::string text;
+        std::cin.get();
+        std::getline(std::cin, text);
+        task_.addText(text);
+    } else if (command == "request") {
+        std::string str;
+        std::cin >> str;
+        std::cout << task_.request(str) << std::endl;
+    } else if (command == "append") {
+        std::string str;
+        std::cin >> str;
+        std::cout << task_.appendToRequest(str) << std::endl;
+    } else if (command == "help") {
+        std::cout << "This is help text\n";
+    } else if (command == "exit") {
+        std::cout << "Bye-bye" << std::endl;
+        is_exit_ = true;
+    } else {
+        std::cout << "Unknown command" << std::endl;
+    }
 }
 
 void App::run() {

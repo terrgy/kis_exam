@@ -1,11 +1,12 @@
-#include "Task.h"
-#include "Trie.h"
 #include <sstream>
+#include "Task.h"
+
 
 Task::Task() : current_input_idx_(0), current_node_(0) {}
 
 bool Task::tryMoveRequest_() {
-    auto [move_end_node, move_end_index] = trie_.move(input_buffer_, current_input_idx_);
+    auto [move_end_node, move_end_index] = trie_.move(input_buffer_,
+                                                      current_input_idx_, current_node_);
     current_node_ = move_end_node;
     if (move_end_index < input_buffer_.size()) {
         current_input_idx_ = move_end_index;
@@ -36,7 +37,7 @@ void Task::addText(const std::string& text) {
 
 std::string Task::request(const std::string& str) {
     input_buffer_ = str;
-    current_input_idx_ = 0;
+    current_input_idx_ = current_node_ = 0;
     return moveRequest_();
 }
 

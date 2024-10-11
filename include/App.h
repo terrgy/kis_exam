@@ -6,7 +6,7 @@
 class App {
 private:
     bool is_exit_;
-    Task task;
+    Task task_;
 
 public:
     App();

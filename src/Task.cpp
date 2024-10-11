@@ -21,7 +21,7 @@ std::string Task::moveRequest_() {
     if (tryMoveRequest_()) {
         return trie_.getBestWord(current_node_);
     }
-    return "The request doesn't match any word";
+    return "Request doesn't match any word";
 }
 
 void Task::addText(const std::string& text) {

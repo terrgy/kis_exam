@@ -6,6 +6,7 @@ App::App() : is_exit_(false) {}
 
 void App::mainLoop() {
     std::string command;
+    std::cout << "Type command: ";
     std::cin >> command;
 
     if (command.empty()) {
@@ -15,17 +16,21 @@ void App::mainLoop() {
 
     if (command == "text") {
         std::string text;
+        std::cout << "Text: ";
         std::cin.get();
         std::getline(std::cin, text);
         task_.addText(text);
+        std::cout << "OK!" << std::endl;
     } else if (command == "request") {
         std::string str;
+        std::cout << "Request: ";
         std::cin >> str;
-        std::cout << task_.request(str) << std::endl;
+        std::cout << "Response: " << task_.request(str) << std::endl;
     } else if (command == "append") {
         std::string str;
+        std::cout << "Request: ";
         std::cin >> str;
-        std::cout << task_.appendToRequest(str) << std::endl;
+        std::cout << "Response: " << task_.appendToRequest(str) << std::endl;
     } else if (command == "help") {
         std::cout << "This is help text\n";
     } else if (command == "exit") {

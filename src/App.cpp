@@ -60,7 +60,9 @@ void App::commandAppend_() {
 }
 
 void App::commandHelp_() {
-    std::cout << "This is help text\n";
+    std::cout << "Commands:\ntext - add text;\nrequest - start new request;\n";
+    std::cout << "append - append to the previous request;\nhelp - print this message;\n";
+    std::cout << "exit - close application;\n";
 }
 
 void App::commandExit_() {

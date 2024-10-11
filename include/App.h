@@ -11,7 +11,7 @@ private:
 public:
     App();
     void run();
-    void main_loop();
+    void mainLoop();
 };
 
 

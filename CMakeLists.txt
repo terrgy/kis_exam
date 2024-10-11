@@ -7,6 +7,8 @@ add_executable(kis_exam src/main.cpp
         src/App.cpp
         include/App.h
         src/Task.cpp
-        include/Task.h)
+        include/Task.h
+        src/Trie.cpp
+        include/Trie.h)
 
 include_directories(include)

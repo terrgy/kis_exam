@@ -6,9 +6,9 @@
 class Task {
 public:
     Task();
-    void AddText(const std::string& str);
-    std::string Request(const std::string& str);
-    std::string AppendToRequest(const std::string& str);
+    void addText(const std::string& str);
+    std::string request(const std::string& str);
+    std::string appendToRequest(const std::string& str);
 
 };
 

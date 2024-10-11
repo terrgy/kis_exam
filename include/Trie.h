@@ -45,7 +45,7 @@ public:
     explicit Trie(size_t reserve_nodes);
 
     void addWord(const std::string& word);
-    std::pair<size_t, size_t> move(const std::string& word, size_t start_node);
+    std::pair<size_t, size_t> move(const std::string& word, size_t start_idx, size_t start_node = 0);
     std::string getBestWord(size_t node);
 };
 

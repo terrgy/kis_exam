@@ -98,18 +98,22 @@ void Trie::addWord(const std::string& word) {
     }
 }
 
-std::pair<size_t, size_t> Trie::move(const std::string& word, size_t start_node = 0) {
+std::pair<size_t, size_t> Trie::move(const std::string& word, size_t start_idx, size_t start_node) {
     if (start_node >= last_new_node_) {
         throw std::runtime_error("Bad start_node parameter");
     }
+    if (start_idx >= word.size()) {
+        throw std::runtime_error("Bad start_idx parameter");
+    }
+
     size_t curr_node = start_node;
     size_t read_count = 0;
 
-    for (char c : word) {
-        if (!canMakeMove_(curr_node, c)) {
+    for (size_t i = start_idx; i < word.size(); ++i) {
+        if (!canMakeMove_(curr_node, word[i])) {
             return {curr_node, read_count};
         }
-        curr_node = makeMove_(curr_node, c);
+        curr_node = makeMove_(curr_node, word[i]);
         ++read_count;
     }
     return {curr_node, read_count};

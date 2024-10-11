@@ -1,6 +1,9 @@
 # Created by https://www.toptal.com/developers/gitignore/api/jetbrains+all,c++,linux
 # Edit at https://www.toptal.com/developers/gitignore?templates=jetbrains+all,c++,linux
 
+build/
+bin/
+
 ### C++ ###
 # Prerequisites
 *.d

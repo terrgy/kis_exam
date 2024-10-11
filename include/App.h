@@ -8,6 +8,13 @@ private:
     bool is_exit_;
     Task task_;
 
+    void commandText_();
+    void commandRequest_();
+    void commandAppend_();
+    void commandHelp_();
+    void commandExit_();
+    void unknownCommand_();
+
 public:
     App();
     void run();

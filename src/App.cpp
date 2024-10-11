@@ -15,29 +15,17 @@ void App::mainLoop() {
     }
 
     if (command == "text") {
-        std::string text;
-        std::cout << "Text: ";
-        std::cin.get();
-        std::getline(std::cin, text);
-        task_.addText(text);
-        std::cout << "OK!" << std::endl;
+        commandText_();
     } else if (command == "request") {
-        std::string str;
-        std::cout << "Request: ";
-        std::cin >> str;
-        std::cout << "Response: " << task_.request(str) << std::endl;
+        commandRequest_();
     } else if (command == "append") {
-        std::string str;
-        std::cout << "Request: ";
-        std::cin >> str;
-        std::cout << "Response: " << task_.appendToRequest(str) << std::endl;
+        commandAppend_();
     } else if (command == "help") {
-        std::cout << "This is help text\n";
+        commandHelp_();
     } else if (command == "exit") {
-        std::cout << "Bye-bye" << std::endl;
-        is_exit_ = true;
+        commandExit_();
     } else {
-        std::cout << "Unknown command" << std::endl;
+        unknownCommand_();
     }
 }
 
@@ -46,4 +34,40 @@ void App::run() {
     while (!is_exit_) {
         mainLoop();
     }
+}
+
+void App::commandText_() {
+    std::string text;
+    std::cout << "Text: ";
+    std::cin.get();
+    std::getline(std::cin, text);
+    task_.addText(text);
+    std::cout << "OK!" << std::endl;
+}
+
+void App::commandRequest_() {
+    std::string str;
+    std::cout << "Request: ";
+    std::cin >> str;
+    std::cout << "Response: " << task_.request(str) << std::endl;
+}
+
+void App::commandAppend_() {
+    std::string str;
+    std::cout << "Append request: ";
+    std::cin >> str;
+    std::cout << "Response: " << task_.appendToRequest(str) << std::endl;
+}
+
+void App::commandHelp_() {
+    std::cout << "This is help text\n";
+}
+
+void App::commandExit_() {
+    std::cout << "Bye-bye" << std::endl;
+    is_exit_ = true;
+}
+
+void App::unknownCommand_() {
+    std::cout << "Unknown command" << std::endl;
 }

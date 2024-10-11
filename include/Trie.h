@@ -8,18 +8,25 @@
 class Trie {
 private:
     struct Node_ {
-        std::unordered_map<char, size_t> move;
-        size_t ends_count;
-        size_t best_word_count;
-        size_t best_word_idx;
+    private:
+        std::unordered_map<char, size_t> move_;
+        size_t ends_count_;
+        size_t best_word_count_;
+        size_t best_word_idx_;
+        std::string containing_word_;
 
-        std::string containing_word;
+    public:
+        Node_();
 
         bool canMakeMove(char c) const;
         size_t makeMove(char c) const;
         void makeChild(size_t child, char c);
         void addEnd(const std::string& word);
         bool update(size_t update_count, size_t update_idx);
+
+        std::string getContainingWord() const;
+        size_t getEndsCount() const;
+        size_t getBestWordIdx() const;
     };
 
     std::vector<Node_> nodes_;
@@ -38,6 +45,8 @@ public:
     explicit Trie(size_t reserve_nodes);
 
     void addWord(const std::string& word);
+    std::pair<size_t, size_t> move(const std::string& word, size_t start_node);
+    std::string getBestWord(size_t node);
 };
 
 #endif //KIS_EXAM_TRIE_H

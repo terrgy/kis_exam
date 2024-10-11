@@ -2,32 +2,46 @@
 
 #include <ranges>
 
+Trie::Node_::Node_() : ends_count_(0), best_word_count_(0), best_word_idx_(0) {}
+
 bool Trie::Node_::canMakeMove(char c) const {
-    return move.contains(c);
+    return move_.contains(c);
 }
 
 size_t Trie::Node_::makeMove(char c) const {
-    return move.at(c);
+    return move_.at(c);
 }
 
 void Trie::Node_::makeChild(size_t child, char c) {
-    move[c] = child;
+    move_[c] = child;
 }
 
 void Trie::Node_::addEnd(const std::string& word) {
-    ++ends_count;
-    if (ends_count == 1) {
-        containing_word = word;
+    ++ends_count_;
+    if (ends_count_ == 1) {
+        containing_word_ = word;
     }
 }
 
 bool Trie::Node_::update(size_t update_count, size_t update_idx) {
-    if (update_count <= ends_count) {
+    if (update_count <= best_word_count_) {
         return false;
     }
-    best_word_count = update_count;
-    best_word_idx = update_idx;
+    best_word_count_ = update_count;
+    best_word_idx_ = update_idx;
     return true;
+}
+
+std::string Trie::Node_::getContainingWord() const {
+    return containing_word_;
+}
+
+size_t Trie::Node_::getEndsCount() const {
+    return ends_count_;
+}
+
+size_t Trie::Node_::getBestWordIdx() const {
+    return best_word_idx_;
 }
 
 Trie::Trie() : nodes_(1), last_new_node_(1) {}
@@ -58,7 +72,7 @@ void Trie::addEnd_(size_t node, const std::string& word) {
 }
 
 bool Trie::nodeUpdate_(size_t node, size_t update) {
-    return nodes_[node].update(nodes_[update].ends_count, update);
+    return nodes_[node].update(nodes_[update].getEndsCount(), update);
 }
 
 void Trie::addWord(const std::string& word) {
@@ -82,4 +96,30 @@ void Trie::addWord(const std::string& word) {
             break;
         }
     }
+}
+
+std::pair<size_t, size_t> Trie::move(const std::string& word, size_t start_node = 0) {
+    if (start_node >= last_new_node_) {
+        throw std::runtime_error("Bad start_node parameter");
+    }
+    size_t curr_node = start_node;
+    size_t read_count = 0;
+
+    for (char c : word) {
+        if (!canMakeMove_(curr_node, c)) {
+            return {curr_node, read_count};
+        }
+        curr_node = makeMove_(curr_node, c);
+        ++read_count;
+    }
+    return {curr_node, read_count};
+}
+
+std::string Trie::getBestWord(size_t node) {
+    if (node >= last_new_node_) {
+        throw std::runtime_error("Bad node parameter");
+    }
+
+    size_t best_word_idx = nodes_[node].getBestWordIdx();
+    return nodes_[best_word_idx].getContainingWord();
 }
